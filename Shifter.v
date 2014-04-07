@@ -11,7 +11,7 @@ input	[32-1:0] sftSrc ;
 wire	[32-1:0] result;
   
 //Main function
-/*your code here*/
+assign result = leftRight ? (sftSrc << shamt) : (sftSrc >> shamt);
 
 
 endmodule

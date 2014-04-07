@@ -103,7 +103,7 @@ ALU ALU(
 		
 Shifter shifter( 
 		.result(Shifter_result), 
-		.leftRight(ALU_operation),
+		.leftRight(ALU_operation[0]),
 		.shamt(instruction[10:6]),
 		.sftSrc(ALUinp2) 
 		);

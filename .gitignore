@@ -219,3 +219,4 @@ work/_info
 *.qpg
 *.qtl
 work/_vmake
+*.mti
