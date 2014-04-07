@@ -213,3 +213,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.mpf
+work/_info
+*.qdb
+*.qpg
+*.qtl
+work/_vmake
