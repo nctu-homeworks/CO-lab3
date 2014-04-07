@@ -9,7 +9,7 @@ output	[32-1:0] sum_o;
 wire	[32-1:0] sum_o;
     
 //Main function
-/*your code here*/
+assign sum_o = src1_i + src2_i;
 
 
 endmodule
