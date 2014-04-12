@@ -15,7 +15,20 @@ wire			RegWrite_o;
 wire			RegDst_o;
 
 //Main function
-/*your code here*/
+
+assign RegDst_o = (instr_op_i==6'b000000) ? 1 :
+				  (instr_op_i==6'b001000) ? 0 : 0;
+				  
+assign RegWrite_o = (instr_op_i==6'b000000) ? 1 :
+				  (instr_op_i==6'b001000) ? 1 : 1;
+				  		  
+assign ALUOp_o = (instr_op_i==6'b000000) ? 3'b010 :
+				  (instr_op_i==6'b001000) ? 3'b100 : 3'b101;				
+
+assign ALUSrc_o = (instr_op_i==6'b000000) ? 0 :
+				  (instr_op_i==6'b001000) ? 1 : 1;				  
+
+
 
 endmodule
    

@@ -12,19 +12,32 @@ wire		[5-1:0] ALU_operation_o;
 wire		[2-1:0] FURslt_o;
 
 //Main function
-casex({ALUOp_i,funct_i}}
-9'b100_xxxxxx:	assign ALU_operation_o = 5'b0_0_0_10; // ADDI
-9'b010_1000x0:	assign ALU_operation_o = {1'b0,funct_i[1],3'b010}; // ADD SUB
-9'b010_10010x:	assign ALU_operation_o = {3'b0,funct_i[1:0]}; // AND OR
-9'b010_101111:	assign ALU_operation_o = 5'b1_0_1_10; // NOT
-9'b010_101010:	assign ALU_operation_o = 5'b0_1_0_11; // SLT
-9'b010_000xx0:	assign ALU_operation_o = funct_i[5:1]; // shift
-endcase
 
-casex({ALUOp_i,funct_i})
-9'b010_0xxxxx: 	assign FURslt_o = 1;
-9'b101_xxxxxx: 	assign FURslt_o = 2;
-default: 		assign FURslt_o = 0;
-endcase
+
+assign ALU_operation_o = ({ALUOp_i,funct_i}==9'b010_100000 || ALUOp_i == 3'b100) ? 5'b00010 : //add addi
+						 ({ALUOp_i,funct_i}==9'b010_100010) ? 5'b01010 : //sub
+						 ({ALUOp_i,funct_i}==9'b010_100100) ? 5'b00000 : //and
+						 ({ALUOp_i,funct_i}==9'b010_100101) ? 5'b00001 : //or
+						 ({ALUOp_i,funct_i}==9'b010_101111) ? 5'b10110 : //not
+						 ({ALUOp_i,funct_i}==9'b010_101010) ? 5'b01011 : //slt
+						 ({ALUOp_i,funct_i}==9'b010_000000) ? 5'b00001 : //sll
+						 ({ALUOp_i,funct_i}==9'b010_000010) ? 5'b00000 : //srl
+						 ({ALUOp_i,funct_i}==9'b010_000100) ? 5'b00011 : 5'b00010; //sllv srlv
+
+						 
+
+assign FURslt_o = ({ALUOp_i,funct_i}==9'b010_100000) ? 0 : //add
+		 		  ({ALUOp_i,funct_i}==9'b010_100010) ? 0 : //sub
+				  ({ALUOp_i,funct_i}==9'b010_100100) ? 0 : //and
+				  ({ALUOp_i,funct_i}==9'b010_100101) ? 0 : //or
+				  ({ALUOp_i,funct_i}==9'b010_101111) ? 0 : //not
+				  ({ALUOp_i,funct_i}==9'b010_101010) ? 0 : //slt
+				  ({ALUOp_i,funct_i}==9'b010_000000) ? 1 : //sll
+				  ({ALUOp_i,funct_i}==9'b010_000010) ? 1 : //srl
+				  ({ALUOp_i,funct_i}==9'b010_000100) ? 1 : //sllv
+				  ({ALUOp_i,funct_i}==9'b010_000110) ? 1 : //srlv
+				  (ALUOp_i==3'b100) ? 0 : 2; //addi lui					 
+						 
+				
 
 endmodule     

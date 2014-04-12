@@ -101,10 +101,19 @@ ALU ALU(
 		.overflow()
 	    );
 		
+wire [5-1:0] shift_amt;
+		
+Mux2to1 #(.size(5)) Mux_Shift_v(
+        .data0_i(instruction[10:6]),
+        .data1_i(readData1),
+        .select_i(ALU_operation[1]),
+        .data_o(shift_amt)
+        );	
+		
 Shifter shifter( 
 		.result(Shifter_result), 
 		.leftRight(ALU_operation[0]),
-		.shamt(instruction[10:6]),
+		.shamt(shift_amt),
 		.sftSrc(ALUinp2) 
 		);
 		

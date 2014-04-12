@@ -8,7 +8,7 @@ output	[32-1:0] data_o;
 wire	[32-1:0] data_o;
 
 //Zero_Filled
-assign data_o[16-1:0] = data_i;
-assign data_o[32-1:16] = 16'd0;
+assign data_o[32-1:16] = data_i;
+assign data_o[16-1:0] = 16'd0;
 
 endmodule      
